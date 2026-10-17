@@ -30,7 +30,7 @@ def get_catalog_path() -> Path:
 
 
 def get_models_dir() -> Path:
-    return Path("models")
+    return Path(os.environ.get("UVL_MODELS_DIR", "models"))
 
 
 def read_catalog(catalog_path: Path | None = None) -> list[dict[str, str]]:

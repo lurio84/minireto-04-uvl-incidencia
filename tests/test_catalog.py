@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from catalog import count_features, validate_catalog
+from catalog import count_features, get_models_dir, validate_catalog
 
 
 def test_count_features(model_factory):
@@ -41,3 +41,8 @@ def test_missing_author_is_reported(tmp_path: Path):
 
     errors = validate_catalog(catalog, models)
     assert any("falta el campo author" in error for error in errors)
+
+
+def test_models_dir_respects_env_var(monkeypatch):
+    monkeypatch.setenv("UVL_MODELS_DIR", "external/models")
+    assert get_models_dir() == Path("external/models")
